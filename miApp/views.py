@@ -14,3 +14,12 @@ def home(request):
     tareas = Tarea.objects.all() #-> Lista de objetos
     context = {'tareas':tareas,'form':form}
     return render(request,'home.html',context)
+
+def eliminar_tarea(request, id):
+    tarea = Tarea.objects.get(id=id)
+    if tarea:
+        try: 
+            tarea.delete()
+        except Exception as e:
+            pass
+        return redirect('home')
